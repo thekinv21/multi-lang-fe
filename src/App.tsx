@@ -1,4 +1,3 @@
-import i18next from 'i18next'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import './App.css'
@@ -6,13 +5,16 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 
 function App() {
-	const { t } = useTranslation()
+	const {
+		t,
+		i18n: { changeLanguage, language }
+	} = useTranslation()
+	const [currentLanguage, setCurrentLanguage] = useState<string>(language)
 
-	const [language, setLanguage] = useState<string>('tr')
-
-	function handleChangeLang(lang: string) {
-		setLanguage(lang)
-		i18next.changeLanguage(`${lang}`)
+	const handleChangeLanguage = () => {
+		const newLanguage = currentLanguage === 'en' ? 'tr' : 'en'
+		setCurrentLanguage(newLanguage)
+		changeLanguage(newLanguage)
 	}
 
 	return (
@@ -27,16 +29,12 @@ function App() {
 			</div>
 			<h1>Vite + React</h1>
 			<div className='card'>
-				<button
-					onClick={() => handleChangeLang(`${language === 'tr' ? 'en' : 'tr'}`)}
-				>
-					Language is {language}
-				</button>
+				<button onClick={handleChangeLanguage}>Language is {language}</button>
 				<p>
 					Edit <code>src/App.tsx</code> and save to test HMR
 				</p>
 			</div>
-			<p className='read-the-docs'>{t('react')}</p>
+			<p className='read-the-docs'>{t(`react`)}</p>
 		</>
 	)
 }
