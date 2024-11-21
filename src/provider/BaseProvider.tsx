@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
 import { ReactQueryProvider } from './ReactQueryProvider'
 
 import '@/i18n'
@@ -8,5 +8,9 @@ interface IBaseProvider {
 }
 
 export function BaseProvider({ children }: IBaseProvider) {
-	return <ReactQueryProvider>{children}</ReactQueryProvider>
+	return (
+		<ReactQueryProvider>
+			<Suspense fallback={<div>Loading....</div>}>{children}</Suspense>
+		</ReactQueryProvider>
+	)
 }

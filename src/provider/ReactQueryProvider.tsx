@@ -10,9 +10,9 @@ export function ReactQueryProvider({ children }: IReactQueryProvider) {
 		new QueryClient({
 			defaultOptions: {
 				queries: {
-					refetchOnWindowFocus: false,
-				},
-			},
+					refetchOnWindowFocus: false
+				}
+			}
 		})
 	)
 
